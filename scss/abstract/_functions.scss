@@ -1,0 +1,25 @@
+@function font-size($size){
+    @if map-has-key( $font-sizes,  $size) {
+        @return map-get( $font-sizes,  $size)
+    }@else {
+        @error "There is no size named `#{$size}` in $font-sizes"
+    }
+}
+
+@function font-weight($wt){
+    @if map-has-key( $font-weights, $wt) {
+        @return map-get( $font-weights, $wt)
+    }@else {
+        @error "There is no weight named `#{$wt}` in $font-weghts";
+    }
+}
+
+@function line-height($size){
+    @if map-has-key($map: $leadings, $key: $size) {
+        @return map-get($map: $leadings, $key: $size)
+    }@else {
+        @error "There is no size named `#{$size}` in $leadings";
+    }
+}
+
+

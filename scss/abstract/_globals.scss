@@ -1,0 +1,24 @@
+$base-font-size: 18px;
+$line-spacing-scale: 0.9;
+$font-weights: (
+ 'regular': 400,
+ 'bold': 700
+);
+
+$font-sizes: (
+    'xs': 0.5rem,
+    's': 0.75rem,
+    'base': 1rem,
+    'l':1.25rem,
+    'xl': 1.40rem
+);
+
+$leadings: (
+    'xs': 0.5 * $line-spacing-scale ,
+    's': 0.75 * $line-spacing-scale,
+    'base': 1 * $line-spacing-scale,
+    'l':1.25 * $line-spacing-scale,
+    'xl': 1.40 * $line-spacing-scale
+)
+
+
