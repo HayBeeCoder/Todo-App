@@ -1,0 +1,24 @@
+%checkbox {
+    @include small-circle(22);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: 0;
+     border: 1px solid light-theme(gray-2);
+    cursor: pointer;
+    background: #fff;
+    position: relative;
+    &:hover{
+      border-color: light-theme(gray-3)
+    }
+   &:checked{
+     background: $primary-clr2;
+     &::before{
+       content: url("../images/icon-check.svg");
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+
+     }
+ }
+}

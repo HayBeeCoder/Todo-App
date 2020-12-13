@@ -1,0 +1,38 @@
+.todo{
+    &__name{
+        &--completed{
+            position: relative;
+            color: light-theme(gray-2);
+            text-decoration: line-through;  
+            padding-right:  60px;
+       }
+    }
+    &__item{
+        position: relative;
+        background: #fff;
+         padding: 20px 40px;
+         border-bottom: 1px solid light-theme(gray-2)
+    }
+     &__checkbox{
+        @extend %checkbox;
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translate(-50%,-50%);
+     }
+     &__cancel{
+        // background-color: yellow;
+        cursor: pointer;
+        width: 15px;
+        height: 15px;
+        font-size: font-size(base);
+        position: absolute;
+        top: 50%;
+        right: 20px;
+         transform: translate(50%,-50%);
+        &--completed{
+            visibility: hidden;
+        }
+     }
+    
+}

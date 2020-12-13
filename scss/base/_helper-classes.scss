@@ -1,0 +1,13 @@
+.container{
+    width: 90%;
+    max-width: $max-width;
+    @include mg-auto;
+}
+
+.display-none{
+    display: none;
+}
+
+.drag__container {
+    padding: 50px 0;
+}

@@ -9,66 +9,83 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="./css/main.css">
   <title>Frontend Mentor | Todo app</title>
-
+  <script src="https://kit.fontawesome.com/63deeda2de.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-  <div class="container">
+
+  <template id="todo-item">
+    <li class="todo__item">
+      <input type="checkbox" class="todo__checkbox">
+      <p class="todo__name"></p>
+      <span class="todo__cancel">
+        <img src="./images/icon-cross.svg" alt="">
+      </span>
+    </li>
+  </template>
+  <div id="root">
     <header class="header">
-      <div class="header__heading-container">
-        <h1>todo</h1>
-        <span></span>
+      <div class="header__container container">
+        <div class="header__heading-container">
+          <h1 class="header__heading">todo</h1>
+          <span class="header__icon header__icon--translate">
+            <span class="translate">
+              <img src="./images/icon-moon.svg" alt="">
+              <img src="./images/icon-sun.svg">
+            </span>
+          </span>
+        </div>
+        <div class="form">
+          <input type="checkbox" name="" id="" class="form__checkbox">
+
+          <input type="text" class="form__input" placeholder="Create a new Todo..." autofocus>
+
+        </div>
       </div>
-      <form class="form">
-        <label for="input">
-          <input type="text" class="form__input">
-        </label>
-      </form>
     </header>
 
     <main>
-      <section>
-        <ul class="todos">
-          <li class="todo__item">
-            <input type="radio">
-            <p>Jog around the park 3x</p>
-            <span class="todo__cancel">x</span>
-          </li>
-        </ul>
-        <div>
-          <p class="todos--left">
-            5 items left
-          </p>
-          <div class="todos__filters">
-            <p>All</p>
-            <p>Active</p>
-            <p>Completed</p>
+      <div class="todos__container container">
+        <section class="todos">
+          <ul class="todos__list" data-component="todo-list"></ul>
+          <div class="todos-bar">
+            <p class="todos__status" data-component="filter">
+              5 items left
+            </p>
+            <ul class="todos__filters">
+              <li class="active">All</li>
+              <li>Active</li>
+              <li>Completed</li>
+            </ul>
+            <p class="todos__clear">
+              Clear Completed
+            </p>
           </div>
-          <p class="todos__clear">
-            Clear Completed
-          </p>
-        </div>
-      </section>
-      <p>
-        Drag and drop the reorder list
-      </p>
+        </section>
+        <!-- </div> -->
+        <ul class="todos__filters todos__filters--external" data-component="filter">
+          <!-- <div class="container"> -->
+          <li class="active">All</li>
+          <li>Active</li>
+          <li>Completed</li>
+        </ul>
+        <!-- </div> -->
+
+      </div>
+
     </main>
+
+    <footer class="footer">
+      <div class="footer__container container">
+        <p>
+          Drag and drop the reorder list
+        </p>
+      </div>
+    </footer>
+
   </div>
-
-  Todo
-
-  <!-- Add dynamic number --> items left
-
-  All
-  Active
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list
-
-
+  <script src="./main.js/index.js"></script>
 </body>
 
 </html>

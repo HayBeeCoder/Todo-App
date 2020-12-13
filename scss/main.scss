@@ -1,12 +1,18 @@
 @import  './abstract/globals',
         './abstract/functions',
-        './abstract/mixins';
+        './abstract/mixins',
+        './abstract/placeholders';
  @import './vendor/google-fonts';
- @import './base/resets';
+ @import './base/resets',
+         './base/helper-classes';
 
-// @import './components/';
+ @import './components/input-field',
+          './components/todo',
+          './components/status-bar';
 
-// @import './layout/';
+ @import './layout/header',
+          './layout/todos',
+          './layout/footer';
 
 @import './theme/dark',
         './theme/light';

@@ -1,4 +1,6 @@
-$base-font-size: 18px;
+// maxim width for container 
+$max-width:  420px;
+$base-font-size: 16px;
 $line-spacing-scale: 0.9;
 $font-weights: (
  'regular': 400,
@@ -7,7 +9,7 @@ $font-weights: (
 
 $font-sizes: (
     'xs': 0.5rem,
-    's': 0.75rem,
+    's': 0.8rem,
     'base': 1rem,
     'l':1.25rem,
     'xl': 1.40rem
@@ -19,6 +21,27 @@ $leadings: (
     'base': 1 * $line-spacing-scale,
     'l':1.25 * $line-spacing-scale,
     'xl': 1.40 * $line-spacing-scale
+);
+
+$primary-clr1:hsl(220, 98%, 61%);
+$primary-clr2: linear-gradient(to right , hsl(192, 100%, 67%) , hsl(280, 87%, 65%));
+
+
+$light-theme: (
+    'gray-0':  hsl(0, 0%, 98%),
+    'gray-1': hsl(236, 33%, 92%),
+    'gray-2': hsl(233, 11%, 84%),
+    'gray-3': hsl(236, 9%, 61%),
+    'gray-4': hsl(235, 19%, 35%),
+
+);
+
+$dark-theme: (
+    'blue-0': hsl(236, 33%, 92%),
+    'blue-1':  hsl(234, 39%, 85%),
+    'blue-3':  hsl(234, 11%, 52%),
+    'blue-4': hsl(233, 14%, 35%),
+    'blue-5': hsl(237, 14%, 26%),
+    'blue-6':  hsl(235, 24%, 19%),
+    'blue-7': hsl(235, 21%, 11%)
 )
-
-

@@ -1,4 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+.form__checkbox, .todo__checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 1000px;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: 0;
+  border: 1px solid #d2d3db;
+  cursor: pointer;
+  background: #fff;
+  position: relative;
+}
+
+.form__checkbox:hover, .todo__checkbox:hover {
+  border-color: #9394a5;
+}
+
+.form__checkbox:checked, .todo__checkbox:checked {
+  background: linear-gradient(to right, #57ddff, #c058f3);
+}
+
+.form__checkbox:checked::before, .todo__checkbox:checked::before {
+  content: url("../images/icon-check.svg");
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,17 +35,28 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 body {
+  background: #fafafa;
   font-family: 'Josefin Sans' , sans-serif;
   font-size: 1rem;
   line-height: 0.9;
 }
 
+img {
+  max-width: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
 ul {
   list-style-type: none;
+}
+
+span {
+  display: inline-block;
 }
 
 h1 {
@@ -27,5 +67,203 @@ h1 {
 h2 {
   font-size: 1.25rem;
   line-height: 1.125;
+}
+
+.container {
+  width: 90%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.display-none {
+  display: none;
+}
+
+.drag__container {
+  padding: 50px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  padding: 15px 10px 15px 40px;
+}
+
+.form__input {
+  caret-color: #3a7bfd;
+  font-family: inherit;
+  border: 0;
+  font-size: inherit;
+  width: 100%;
+  padding: 2px 0;
+  outline: 0;
+}
+
+.form__input::placeholder {
+  color: #9394a5;
+}
+
+.form__checkbox {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translate(-50%, -50%);
+}
+
+.todo__name--completed {
+  position: relative;
+  color: #d2d3db;
+  text-decoration: line-through;
+  padding-right: 60px;
+}
+
+.todo__item {
+  position: relative;
+  background: #fff;
+  padding: 20px 40px;
+  border-bottom: 1px solid #d2d3db;
+}
+
+.todo__checkbox {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translate(-50%, -50%);
+}
+
+.todo__cancel {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translate(50%, -50%);
+}
+
+.todo__cancel--completed {
+  visibility: hidden;
+}
+
+.todos__container {
+  position: relative;
+}
+
+.todos-bar {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 20px 10px;
+  color: #9394a5;
+}
+
+.todos__filters {
+  display: none;
+}
+
+.todos__filters--external {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 1px 1px 9px rgba(0, 0, 0, 0.1);
+  z-index: 4;
+  width: 100%;
+  top: 108%;
+  background-color: #fff;
+  padding: 15px 40px;
+}
+
+.todos__filters--external li {
+  margin: 0 10px;
+}
+
+.todos__filters li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px;
+  color: #9394a5;
+}
+
+.todos__filters li:hover {
+  color: #484b6a;
+}
+
+.todos__filters li.active {
+  color: #3a7bfd;
+}
+
+.header {
+  min-height: 200px;
+  background-image: url("../images/bg-mobile-light.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header__heading-container {
+  padding: 38px 0 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+}
+
+.header__heading {
+  text-transform: uppercase;
+  letter-spacing: 9px;
+}
+
+.header__icon {
+  width: 21px;
+  height: 21px;
+  display: grid;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.header__icon--translate {
+  transform: translateY(-24px);
+}
+
+.todos {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1);
+  margin-top: -30px;
+}
+
+.todos__status, .todos__clear {
+  cursor: pointer;
+  padding: 4px;
+}
+
+.todos__status:hover, .todos__clear:hover {
+  background-color: #f4f4f6;
+}
+
+main > p {
+  margin: 100px 0;
+}
+
+.footer {
+  color: #9394a5;
+  padding: 150px 0;
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

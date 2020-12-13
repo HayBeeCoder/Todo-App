@@ -1,0 +1,27 @@
+.header{
+     min-height: 200px;
+    // padding:  0 0 50px;
+    background-image: url('../images/bg-mobile-light.jpg') ;
+    background-repeat: no-repeat;
+     background-size: cover;
+  &__heading-container{
+     padding: 38px 0 32px ;
+     @include flex(space-between);
+      color: #fff;
+  }
+  &__heading{
+      text-transform: uppercase;
+      letter-spacing: 9px;
+  }
+  &__icon{
+      width: 21px;
+      height: 21px;
+      display: grid;
+      cursor: pointer;
+     overflow: hidden;
+      &--translate {
+          transform: translateY(-24px);
+      }
+  }
+  
+}

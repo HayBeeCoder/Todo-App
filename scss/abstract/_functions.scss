@@ -22,4 +22,17 @@
     }
 }
 
+@function light-theme($clr){
+    @if map-has-key($light-theme, $key: $clr) {
+        @return map-get($light-theme, $clr)
+    }@else {
+        @error "There is no color named `#{$clr}` in $light-theme";
+    } 
+}
+
+@function border-radius($size){
+   
+        @return #{$size}px;
+}
+
 

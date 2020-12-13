@@ -1,0 +1,47 @@
+ .todos{
+     &__container{
+         position: relative;
+     }
+     &-bar{
+        font-size: font-size(s);
+         @include flex(space-between);
+         background-color: #fff;
+         padding: 20px 10px;
+         color: light-theme(gray-3)
+     }
+     &__filters{
+        display: none;
+    //  display: initial;
+        &--external{
+            @include flex;
+            // display: none;
+     border-radius: border-radius(4);
+      position: absolute;
+       overflow: hidden;
+   
+ box-shadow: 1px 1px  9px rgba( #000000, 0.1);
+      z-index: 4;
+     width: 100%;
+     top: 108%;
+        background-color: #fff;
+         padding: 15px 40px;
+         li{
+            margin: 0 10px;
+         }
+        }
+          
+         li{
+             cursor: pointer;
+             display: inline-block;
+            //   
+                padding: 4px;
+               color: light-theme(gray-3); 
+               &:hover{
+                color: light-theme(gray-4);       
+                }
+               &.active{
+                    color: $primary-clr1;  
+               }
+         }
+     }
+ }

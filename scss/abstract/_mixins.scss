@@ -5,3 +5,19 @@
     justify-content: $justify;
 }
 
+@mixin mg-auto(){
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+@mixin small-circle($width){
+    width: #{$width}px;
+height: #{$width}px;
+
+    // padding-bottom: 100%;
+    border-radius: border-radius(1000);
+}
+
+
+

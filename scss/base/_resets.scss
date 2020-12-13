@@ -5,17 +5,26 @@
 }
 
 html{
-    font-size: 18px;
+    font-size: 1rem;
 }
 
 body{
+    background: light-theme(gray-0);
     font-family: 'Josefin Sans' , sans-serif;
     font-size: font-size(base);
     line-height: line-height(base)
 }
-
+img{
+    max-width: 100%;
+    width: 100%;
+    object-fit: contain;
+}
 ul{
     list-style-type: none;
+}
+
+span{
+    display: inline-block;
 }
 
 h1{

@@ -1,0 +1,21 @@
+.todos{
+   
+    border-radius: border-radius(4);
+    overflow: hidden;
+    box-shadow: 2px 5px 10px rgba( #000000, 0.1);
+    margin-top:  -30px;  
+    // position: absolute;
+    // background-color: orange;
+    &__status,&__clear{
+        cursor: pointer;
+        padding: 4px ;
+        &:hover{
+        background-color: lighten(light-theme(gray-3), 35%);
+        }
+    }
+   
+}
+
+main > p{
+    margin: 100px 0;
+}
