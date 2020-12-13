@@ -237,8 +237,14 @@ h2 {
   overflow: hidden;
 }
 
-.header__icon--translate {
+.header__icon > .translate {
+  transform: translateY(0);
+  transition: 0.9s ease-in-out transform;
+}
+
+.header__icon--translate > .translate {
   transform: translateY(-24px);
+  transition: 0.9s ease-in-out transform;
 }
 
 .todos {

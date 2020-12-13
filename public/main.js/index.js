@@ -35,24 +35,34 @@ const events = {
         if(state.todos.some(todo => todo.completed)){
          state.todos = state.todos.filter(todo => !todo.completed);
          render();
+        }   
+    },
+    toggle: ()=>{
+        if(state.light){
+            state.light = false
+        }else{
+            state.light = true;
         }
-        
+        render();
+    },
+    selectFilter: (filter)=>{
+        state.currentFilter = filter;
+        render();
     }
 
 }
 window.onload = ()=>{
-    console.log(inputElement);
     render();
 }
 const render = ()=>{
-    console.log(state)
+    
     window.requestAnimationFrame(()=>{
      const main = document.querySelector('#root');  
-     console.log(main) ;
+    
       const clonedMain = main.cloneNode(true);
-      console.log(state)
+    
       const newMain = update(clonedMain,state,events);
-    console.log(newMain);
+    
     main.replaceWith(newMain);
     const inputElement = document.querySelector('.form__input');
     
@@ -62,53 +72,49 @@ const render = ()=>{
 render()
 
 function update(clonedMain,state,events){
-    console.log(state)
+    
     const { todos,light,currentFilter }  = state;
      const list = clonedMain.querySelector('.todos__list');
-     console.log(list)
+    
     const toggle = clonedMain.querySelector('.header__icon');
+    console.log(toggle);
     const counter  = clonedMain.querySelector('.todos__status');
-    const filters = clonedMain.querySelector('.todos__filters');   
+    const filters = clonedMain.querySelectorAll('.todos__filters li');   
     const inputElement = clonedMain.querySelector('.form__input');
     const clearTodosBtn =  clonedMain.querySelector('.todos__clear')
     const generalCheckbox = clonedMain.querySelector('.form__checkbox');
     //Update components
-    console.log(list);
+    
      updateList(list,todos,events);
-    updateToggle(toggle, light);
+    updateToggle(toggle, light,clonedMain);
     updateCounter(counter,todos)
     updateCurrentFilter(filters,currentFilter);
     updateHeaderCheckbox(generalCheckbox,todos);
-    // update(filters,state)
+    
     //add appropriate Listeners 
     listenForInput(inputElement);
     listenForDeleteAllTodos(clearTodosBtn);
     listenForCheckAllTodos(generalCheckbox);
     listenForFilters(filters)
+    listenForToggle(toggle);
     // inputElement.focus();
     return  clonedMain;
 
 }
 
 
+// LISTENERS 
 function listenForFilters(filters){
-    // for(let filter of filters){
-        filters.addEventListener('click' , (e)=>{
-            console.log(e.target)
-            state.currentFilter = e.target.textContent;
-        })
-        console.log(state)
-    // }
+        filters.forEach(filter => filter.addEventListener('click' , ()=>{
+                events.selectFilter(filter.textContent);
+        }))
 }
 function listenForInput(targetElement){
     targetElement.addEventListener('keypress' , e => {
         if( targetElement.value && e.key == 'Enter'){
              events.addItem(e.target.value);
-          
              e.target.value = '';
-            
         }
-        // e.preventDefault();
     })
 }
 
@@ -116,6 +122,13 @@ function listenForDeleteAllTodos(targetELement){
     targetELement.addEventListener('click' , ()=>{
      events.clearCompleted();
     })
+}
+
+function listenForToggle(targetElement){
+    targetElement.addEventListener('click' ,()=>{
+        events.toggle();
+    })
+
 }
 
 function listenForCheckAllTodos(targetElement){
@@ -128,10 +141,10 @@ function listenForCheckAllTodos(targetElement){
     })
 }
 
+
+// UI UPDATES
 function updateList(list,todos,events){
-    console.log(list);
     list.innerHTML = '';
-    // console.log(list.innerHTML)
    todos
    .map((todo,index) => createTodo(todo,index,events)).forEach(todo => list.appendChild(todo));
   
@@ -140,16 +153,27 @@ function updateList(list,todos,events){
 function updateHeaderCheckbox(targetElement , todos){
     if(!todos.length) targetElement.checked = false;
 }
-function updateToggle(toggle,light){
-    toggle.className = light ? "header__icon" : "header__icon header__icon--translate";
-   
+
+function updateToggle(toggle,light,clonedMain){
+    if(light){
+        clonedMain.classList.remove('dark')
+        toggle.classList.remove('header__icon--translate')
+    }else{
+        clonedMain.classList.add('dark');
+        toggle.classList.add('header__icon--translate')
+    }
 }
 function updateCurrentFilter(filters,currentFilter){
-    filters.addEventListener('click' , (e)=>{
-        e.target.textContent = currentFilter;
+    filters.forEach(filter => {
+        if(filter.textContent == currentFilter){
+            filter.classList.add('active');
+        }else{
+            filter.classList.remove('active');
+        }
     })
-
 }
+
+//HELPERS
 function updateCounter(counter,todos){
     counter.textContent = getItemsLeft(todos)
 }
@@ -164,7 +188,6 @@ function getItemsLeft(todos){
 
 function createTodoTemplate(){
     let template = document.getElementById('todo-item');
-    console.log(template)
     return template.content.firstElementChild.cloneNode(true) 
 }
 
@@ -174,9 +197,7 @@ function createTodo(todo,index,events){
     const {text , completed}= todo;
     const checkbox = newTodo.querySelector('.todo__checkbox');
     const deleteX  = newTodo.querySelector('.todo__cancel');
-    
     newTodo.querySelector('.todo__name').textContent = text;
-    
     if(completed){
         newTodo.querySelector('.todo__name').classList.add('todo__name--completed');
         newTodo.querySelector('.todo__checkbox').checked = true;
