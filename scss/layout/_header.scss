@@ -21,13 +21,11 @@
      overflow: hidden;
      > .translate{
          transform: translateY(0);
-         transition: 0.9s ease-in-out transform;
      }
       &--translate {
           > .translate{
           transform: translateY(-24px);
-          transition: 0.9s ease-in-out transform;
-          }
+           }
       }
   }
   

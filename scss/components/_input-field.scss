@@ -4,13 +4,15 @@
      overflow: hidden;
     position: relative;
     width: 100%;
-    background-color: #fff;
+    background-color: light-theme(gray-0);
     // margin: 20px 0;
     padding: 15px 10px 15px 40px;
     &__input{
+        background: transparent;
         caret-color: $primary-clr1;
         font-family: inherit;
         border: 0;
+      
         font-size: inherit;
         width: 100%;
         //  line-height: 1.5;
@@ -26,6 +28,7 @@
         }
     }
     &__checkbox{
+  
         @extend %checkbox;
         position: absolute;
         top: 50%;

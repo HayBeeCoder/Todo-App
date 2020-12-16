@@ -5,10 +5,14 @@
     outline: 0;
      border: 1px solid light-theme(gray-2);
     cursor: pointer;
-    background: #fff;
+    background: transparent;
     position: relative;
+    
     &:hover{
       border-color: light-theme(gray-3)
+    }
+    &:disabled{
+      opacity: 0.4;
     }
    &:checked{
      background: $primary-clr2;

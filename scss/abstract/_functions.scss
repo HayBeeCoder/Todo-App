@@ -30,6 +30,15 @@
     } 
 }
 
+@function dark-theme($clr){
+    @if map-has-key($dark-theme, $key: $clr) {
+        @return map-get($dark-theme, $clr)
+    }@else {
+        @error "There is no color named `#{$clr}` in $dark-theme";
+    } 
+}
+
+
 @function border-radius($size){
    
         @return #{$size}px;

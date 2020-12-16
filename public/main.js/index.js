@@ -6,9 +6,11 @@ const state = {
 }
 
 const events = {
+    
     addItem: (text)=>{
-        const todo = {text , completed: false}
-        state.todos.push(todo);
+        const todo = {text , completed: false};
+        if(state.duplicateTodos) state.duplicateTodos.push(todo);
+        else if(state.currentFilter != 'Completed') state.todos.push(todo);
         render();
     },
     removeItem: (index)=>{
@@ -34,6 +36,7 @@ const events = {
     clearCompleted: ()=>{
         if(state.todos.some(todo => todo.completed)){
          state.todos = state.todos.filter(todo => !todo.completed);
+            if(state.duplicateTodos) state.duplicateTodos = state.duplicateTodos.filter(todo => !todo.completed);
          render();
         }   
     },
@@ -48,7 +51,33 @@ const events = {
     selectFilter: (filter)=>{
         state.currentFilter = filter;
         render();
-    }
+    },
+    syncFilters: ()=>{
+        const filter = state.currentFilter;
+        if(filter == 'All'){
+            if(state.duplicateTodos) {
+                state.todos = state.duplicateTodos;
+                delete state.duplicateTodos};  
+            }else if(filter == 'Active'){
+                if(state.duplicateTodos){
+                    // state.duplicateTodos = state.todos;
+                    state.todos = state.duplicateTodos.filter(todo => !todo.completed) ;
+                 }else{
+                    state.duplicateTodos = state.todos;
+                 }
+                //  state.todos = state.duplicateTodo || state.todos;
+                console.log('helllo')
+                 state.todos = state.todos.filter(todo => !todo.completed);
+             }else if(filter == 'Completed'){
+                if(state.duplicateTodos){
+                    state.todos = state.duplicateTodos.filter(todo => todo.completed);
+                 }else{
+                    state.duplicateTodos = state.todos;
+                    state.todos = state.duplicateTodos.filter(todo => todo.completed);
+                 }
+             }
+             render();
+         }
 
 }
 window.onload = ()=>{
@@ -74,10 +103,9 @@ render()
 function update(clonedMain,state,events){
     
     const { todos,light,currentFilter }  = state;
+
      const list = clonedMain.querySelector('.todos__list');
-    
     const toggle = clonedMain.querySelector('.header__icon');
-    console.log(toggle);
     const counter  = clonedMain.querySelector('.todos__status');
     const filters = clonedMain.querySelectorAll('.todos__filters li');   
     const inputElement = clonedMain.querySelector('.form__input');
@@ -85,17 +113,16 @@ function update(clonedMain,state,events){
     const generalCheckbox = clonedMain.querySelector('.form__checkbox');
     //Update components
     
-     updateList(list,todos,events);
+     updateList(list,todos,currentFilter);
     updateToggle(toggle, light,clonedMain);
-    updateCounter(counter,todos)
+    updateCounter(counter,state)
     updateCurrentFilter(filters,currentFilter);
-    updateHeaderCheckbox(generalCheckbox,todos);
-    
+    updateHeaderCheckbox(generalCheckbox,todos,currentFilter);
     //add appropriate Listeners 
     listenForInput(inputElement);
     listenForDeleteAllTodos(clearTodosBtn);
     listenForCheckAllTodos(generalCheckbox);
-    listenForFilters(filters)
+    listenForFilters(filters);
     listenForToggle(toggle);
     // inputElement.focus();
     return  clonedMain;
@@ -105,14 +132,19 @@ function update(clonedMain,state,events){
 
 // LISTENERS 
 function listenForFilters(filters){
-        filters.forEach(filter => filter.addEventListener('click' , ()=>{
+    // events.syncFilters();
+        filters.forEach(filter => {
+            filter.addEventListener('click' , ()=>{
                 events.selectFilter(filter.textContent);
-        }))
+                events.syncFilters()
+        })
+        })
 }
 function listenForInput(targetElement){
     targetElement.addEventListener('keypress' , e => {
         if( targetElement.value && e.key == 'Enter'){
              events.addItem(e.target.value);
+            events.syncFilters()
              e.target.value = '';
         }
     })
@@ -138,6 +170,7 @@ function listenForCheckAllTodos(targetElement){
         }else{
             events.uncompleteAll();
         }
+        // events.syncFilters()
     })
 }
 
@@ -150,14 +183,18 @@ function updateList(list,todos,events){
   
 }
 
-function updateHeaderCheckbox(targetElement , todos){
-    if(!todos.length) targetElement.checked = false;
+function updateHeaderCheckbox(targetElement , todos,currentFilter){
+    // if(currentFilter != 'All') targetElement.disabled = true;
+    if(!todos.length || todos.some(todo => !todo.completed)) targetElement.checked = false;
+     if(todos.length && todos.every(todo => todo.completed )) targetElement.checked = true;
+     if(currentFilter != 'All') targetElement.disabled = true;
+     else targetElement.disabled = false;
 }
 
 function updateToggle(toggle,light,clonedMain){
     if(light){
         clonedMain.classList.remove('dark')
-        toggle.classList.remove('header__icon--translate')
+        toggle.classList.remove('header__icon--translate');
     }else{
         clonedMain.classList.add('dark');
         toggle.classList.add('header__icon--translate')
@@ -167,6 +204,7 @@ function updateCurrentFilter(filters,currentFilter){
     filters.forEach(filter => {
         if(filter.textContent == currentFilter){
             filter.classList.add('active');
+            
         }else{
             filter.classList.remove('active');
         }
@@ -174,10 +212,12 @@ function updateCurrentFilter(filters,currentFilter){
 }
 
 //HELPERS
-function updateCounter(counter,todos){
-    counter.textContent = getItemsLeft(todos)
+function updateCounter(counter,state ){
+    let { todos , duplicateTodos} = state;
+    counter.textContent = getItemsLeft(todos,duplicateTodos)
 }
-function getItemsLeft(todos){
+function getItemsLeft(todos,duplicateTodos){
+    if(duplicateTodos) todos = duplicateTodos;
     const itemsLeft =  todos.filter(todo => !todo.completed);
     const { length } = itemsLeft;
     if(length == 1){
@@ -192,7 +232,7 @@ function createTodoTemplate(){
 }
 
  
-function createTodo(todo,index,events){
+function createTodo(todo,index,currentFilter){
     const newTodo = createTodoTemplate();
     const {text , completed}= todo;
     const checkbox = newTodo.querySelector('.todo__checkbox');
@@ -203,13 +243,19 @@ function createTodo(todo,index,events){
         newTodo.querySelector('.todo__checkbox').checked = true;
         newTodo.querySelector('.todo__cancel').style.display = 'none';
     }
-
+    checkbox.disabled = false;
+    if(currentFilter != 'All'){
+        checkbox.disabled = true;
+    }
     const handleCheckbox = (e)=>{
         if(e.target.checked){
             events.completeItem(index);
+       
         }else{
             events.unCompleteItem(index);
+      
         }
+        events.syncFilters();
     }
     const handleDeleteX = ()=>{
         events.removeItem(index);

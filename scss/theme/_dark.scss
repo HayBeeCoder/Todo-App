@@ -1,0 +1,60 @@
+.dark{
+    %checkbox{
+        border-color: dark-theme(blue-5);
+    }
+    background: dark-theme(blue-7);
+    .header{
+       background-image: url('../images/bg-mobile-dark.jpg') ;
+    } 
+    .form{
+        background-color: dark-theme(blue-6);
+
+        &__input{
+            color: dark-theme(blue-1);
+            &::placeholder{
+               
+                color: light-theme(gray-4);
+                
+            }
+        }
+    } 
+    .todo{
+        &__name--completed{
+            color: dark-theme(blue-4);
+        }
+        &__item{
+            color: dark-theme(blue-1);
+            background: dark-theme(blue-6);
+            border-color: dark-theme(blue-5);
+        }
+    } 
+    .todos{
+            &__status,&__clear{
+                cursor: pointer;
+                padding: 4px ;
+                &:hover{
+                    color: dark-theme(blue-1);
+                background-color: initial;
+                }
+            }
+        &-bar{
+           font-size: font-size(s);
+            @include flex(space-between);
+            background-color: dark-theme(blue-6);
+            color: dark-theme(blue-3);
+        }
+        &__filters{
+            // display: none;
+        //  display: initial;
+        background-color: dark-theme(blue-6);       
+        li{
+                 &:hover{
+                         color: dark-theme(blue-4);       
+                    }
+                    &.active{
+                        color: $primary-clr1;  
+                    } 
+        }
+        }
+    }
+}
