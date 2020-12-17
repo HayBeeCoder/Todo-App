@@ -81,22 +81,17 @@ const events = {
 
 }
 
-/*const render = ()=>{
+const render = ()=>{
     
     window.requestAnimationFrame(()=>{
      const main = document.querySelector('#root');  
-
       const clonedMain = main.cloneNode(true);
-    
       const newMain = update(clonedMain,state,events);
+      main.replaceWith(newMain);
     
-    main.replaceWith(newMain);
-    const inputElement = document.querySelector('.form__input');
-    
-    inputElement.focus()
     }) 
 }
-render()*/
+render()
 
 function update(clonedMain,state,events){
     
