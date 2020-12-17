@@ -80,14 +80,12 @@ const events = {
          }
 
 }
-window.onload = ()=>{
-    render();
-}
+
 const render = ()=>{
     
     window.requestAnimationFrame(()=>{
      const main = document.querySelector('#root');  
-    
+
       const clonedMain = main.cloneNode(true);
     
       const newMain = update(clonedMain,state,events);
