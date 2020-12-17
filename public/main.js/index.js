@@ -81,7 +81,7 @@ const events = {
 
 }
 
-const render = ()=>{
+/*const render = ()=>{
     
     window.requestAnimationFrame(()=>{
      const main = document.querySelector('#root');  
@@ -96,7 +96,7 @@ const render = ()=>{
     inputElement.focus()
     }) 
 }
-render()
+render()*/
 
 function update(clonedMain,state,events){
     
